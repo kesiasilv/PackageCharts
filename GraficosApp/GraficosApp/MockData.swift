@@ -29,13 +29,12 @@ struct ViewDado: Identifiable {
     ]
 }
 
-extension Date {
+extension Date { //extensao para exibir a data com base naquele ano, mes, dia que eu passo.
     static func from(year: Int, month: Int, day: Int) -> Date {
-        var components = DateComponents()
+        var components = DateComponents() //depois crio um objeto com base naqueles dados que passei
         components.year = year
         components.month = month
         components.day = day
         return Calendar.current.date(from: components)!
     }
 }
-
