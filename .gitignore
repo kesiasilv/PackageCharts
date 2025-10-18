@@ -1,0 +1,54 @@
+# ===========================
+# Xcode / Swift iOS App
+# ===========================
+
+# Builds
+build/
+DerivedData/
+*.xcworkspace
+*.xcuserdata
+*.xcodeproj/project.xcworkspace
+*.xcodeproj/xcuserdata
+*.swiftsourceinfo
+
+# Swift Package Manager
+.build/
+Packages/
+.swiftpm/
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# User settings
+*.moved-aside
+*.xcscmblueprint
+*.xccheckout
+*.xcuserstate
+
+# macOS
+.DS_Store
+*.swp
+
+# Logs
+*.log
+
+# ===========================
+# Swift Package 
+# ===========================
+
+# Package Manager artifacts
+Package.resolved
+
+# Optional: ignore sample apps inside package folder
+# MeuProjetoApp/Build/
+# MeuProjetoApp/DerivedData/
