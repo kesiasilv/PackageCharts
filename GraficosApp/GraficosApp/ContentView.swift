@@ -10,21 +10,14 @@ import Charts //importando a framework responsavel por criar a vizualizacao de g
 
 struct ContentView: View {
     
-    //aqui criamos a vizualizacao dos daods oque sera exibido nesse caso um array de numeros por anos
-    let viewDados: [ViewDado] = [
-        .init(date: Date.from(year: 2025, month: 01, day: 01), viewCount: 1340),
-        .init(date: Date.from(year: 2025, month: 02, day: 01), viewCount: 3245),
-        .init(date: Date.from(year: 2025, month: 03, day: 01), viewCount: 6785),
-        .init(date: Date.from(year: 2025, month: 04, day: 01), viewCount: 2889),
-        .init(date: Date.from(year: 2025, month: 05, day: 01), viewCount: 3472),
-        .init(date: Date.from(year: 2025, month: 06, day: 01), viewCount: 7773),
-        .init(date: Date.from(year: 2025, month: 07, day: 01), viewCount: 2203),
-        .init(date: Date.from(year: 2025, month: 08, day: 01), viewCount: 6646),
-        .init(date: Date.from(year: 2025, month: 09, day: 01), viewCount: 1030),
-        .init(date: Date.from(year: 2025, month: 10, day: 01), viewCount: 3256),
-        .init(date: Date.from(year: 2025, month: 11, day: 01), viewCount: 3321),
-        .init(date: Date.from(year: 2025, month: 12, day: 01), viewCount: 3321)
-    ]
+    @State private var rawSelectionDate: Date?//propriedade criada para usar nas interacoes
+    
+    var selectedViewMonth: ViewDado? {
+        guard let rawSelectionDate else { return nil }
+        return mockData.first{
+            Calendar.current.isDate(rawSelectionDate, equalTo: $0.date, toGranularity: .month)
+        }
+    }
     
     var body: some View {
         VStack (alignment: .leading, spacing: 4){
@@ -40,64 +33,66 @@ struct ContentView: View {
             
             Chart{ //criado o grafico a partir dos dados da matriz que criamos
                 
-                RuleMark(y: .value("Meta", 6500)) //aqui é uma linha de "meta" do gráfico (ps: se eu colocar depois do ForEach essa linha passa a ficar por cima do grafico como uma ZStack mesmo)
-                
-//                    //personalizacap da linha e de titulo:
-                    .foregroundStyle(Color.mint)
-                    .lineStyle(StrokeStyle(lineWidth: 1, dash: [5]))
-//                    .annotation(alignment: .topLeading){ //titulo que mostra que a linha tracejada seria a meta
-//                        Text("Meta")
-//                            .font(.caption)
-//                            .foregroundColor(.secondary)
-//            
-//                    }
- 
-                ForEach(viewDados) { viewDado in
-                    //criadno uma vizualizacao de grafico do tipo de barras "BarMark", aqui que mudo o tipo de vizualizacao "LineMark" e outros..
+                //criando um if para a UI das barras de quando selecionamos cada uma:
+                if let selectedViewMonth {
+                    RuleMark(x: .value("Selected Month", selectedViewMonth.date, unit: .month)) //aqui criei uma linha vertical que adiciona no eixo X se eu quisesse uma horizontal no eixo Y criava como tal.
+                        .foregroundStyle(.secondary.opacity(0.3))//personalizando a linha
+                    //criando a UI que ficara por cima da linha
+                        .annotation(position: .top, overflowResolution: .init(x: .fit(to: .chart), y: .disabled)) {
+                            VStack{
+                                Text(selectedViewMonth.date, format: .dateTime.month(.wide))
+                                    .bold()
+                                
+                                Text("\(selectedViewMonth.viewCount)")
+                                .font(.title3.bold())
+                            }
+                            //personalizando o tamanho do quadro que exibirá quando segurar na barra
+                            .foregroundStyle(.white)
+                            .padding(12)
+                            .frame(width: 120)
+                            .background(RoundedRectangle(cornerRadius: 10).fill(.pink.gradient))
+                        }
+                }
+                ForEach(mockData) { viewDado in
+                    //criadno uma vizualizacao de grafico do tipo de barras
                     BarMark(
                         x: .value("Ano", viewDado.date, unit: .month),
                         y: .value("Dados", viewDado.viewCount)
                         )
                     //criando uma personalizacao básica:
                     .foregroundStyle(Color.pink.gradient)
-//                    .cornerRadius(10) //pontas arrendondadas
-                }//tudo isso atual como uma ZStack ou seja posso estabelecer as regras atras das barras do meu grafico
-            }
-            //definindo um tamanho para o gráfico
-            .frame(height: 180)
-            //se quiser personalizar somente o eixo X para exibir por exemplo todos os dados em vez de pular de 2 em 2 ou 3.. e outras personalizacoes apenas do X
-            .chartXAxis{
-                AxisMarks(values: viewDados.map { $0.date }) { date in
-//                    AxisGridLine() //adiciona linhas como uma grade
-//                    AxisTick() //as linhas ultrapassam para fora do grafico para chegar no eixo X
-                    AxisValueLabel(format: .dateTime.month(.narrow), centered: true) //aqui posso mudar de .year para .month dependendo do que quero mostrar e posso centralizar com o 'centered'
-                }
+                    //adicionando a opacidade quando clica na barra:
+                    .opacity(rawSelectionDate == nil || viewDado.date == selectedViewMonth? .date ? 1 : 0.5)
+                    
+                    
+                }//tudo isso atua como uma ZStack ou seja posso estabelecer as regras atras das barras do meu grafico
             }
             
-            // Pode realizar as mesmas personalizaxcoes ou ate mais somente com o eixo Y:
-            .chartYAxis{
-//                AxisMarks(position: .leading) //isso muda as informacoes do eixo y para a esquerda
+            
+            .frame(height: 180)  //definindo um tamanho para o gráfico
+            
+            //criando o drang in drop que passa por cima de cada barra do grafico:
+            .chartXSelection(value: $rawSelectionDate.animation(.easeInOut)) //a animacao é bem minima para mudar a interface quando passa pelas barras mas sem a condicao de cima essa animação n funciona
+//            //para fins de testes e ver se ta funcionando o drang in drop
+//            .onChange(of: selectedViewMonth?.viewCount, { oldValue, newValue in
+//                print(newValue)
+//            })
+            
+            .chartXAxis{ //personaliza o eixo X
+                AxisMarks(values: mockData.map { $0.date }) { date in
+                    AxisGridLine() //adiciona linhas como uma grade
+                    AxisValueLabel(format: .dateTime.month(.narrow), centered: true)
+                }
+            }
+    
+            .chartYAxis{//personaliza o eixo Y
                 AxisMarks{ mark in
                     AxisValueLabel()
                     AxisGridLine()
                 }
                 
             }
-            
-//            //quando quiser um intervalo especifico sem ser o do padrao:
-//            .chartYScale(domain: 0...2000)
-            
-//            //qunado quiser ocultar as informacoes:
-//            .chartXAxis(.hidden) //oculta as info do eixo X
-//            .chartYAxis(.hidden) //oculta as info do eixo Y
-            
-            //personalizando o fundo do grafico:
-//            .chartPlotStyle { plotContent in
-//                plotContent
-//                    .background(Color(.systemGray6))
-//                    .border(.green, width: 3) //borda do gráfico
-//                
-//            }
+ 
             //adicionando tipo uma anotacao
             .padding(.bottom) //deixa mais separado a descrição
             HStack{
@@ -120,6 +115,22 @@ struct ViewDado: Identifiable {
     let date: Date //eixo X das datas das noticias
     let viewCount: Int //eixo Y de dados aleatorios
 }
+
+//aqui criamos a vizualizacao dos daods oque sera exibido nesse caso um array de numeros por anos
+let mockData: [ViewDado] = [
+    .init(date: Date.from(year: 2025, month: 01, day: 01), viewCount: 1340),
+    .init(date: Date.from(year: 2025, month: 02, day: 01), viewCount: 3245),
+    .init(date: Date.from(year: 2025, month: 03, day: 01), viewCount: 6785),
+    .init(date: Date.from(year: 2025, month: 04, day: 01), viewCount: 2889),
+    .init(date: Date.from(year: 2025, month: 05, day: 01), viewCount: 3472),
+    .init(date: Date.from(year: 2025, month: 06, day: 01), viewCount: 7773),
+    .init(date: Date.from(year: 2025, month: 07, day: 01), viewCount: 2203),
+    .init(date: Date.from(year: 2025, month: 08, day: 01), viewCount: 6646),
+    .init(date: Date.from(year: 2025, month: 09, day: 01), viewCount: 1030),
+    .init(date: Date.from(year: 2025, month: 10, day: 01), viewCount: 3256),
+    .init(date: Date.from(year: 2025, month: 11, day: 01), viewCount: 3321),
+    .init(date: Date.from(year: 2025, month: 12, day: 01), viewCount: 3321)
+]
 
 extension Date { //extensao para exibir a data com base naquele ano, mes, dia que eu passo.
     static func from(year: Int, month: Int, day: Int) -> Date {
