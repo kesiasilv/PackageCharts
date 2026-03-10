@@ -6,8 +6,19 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		E7AF5A822F5F4EDD007E3E6F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E78838B52EA185E5004C2C0E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E78838BC2EA185E5004C2C0E;
+			remoteInfo = GraficosApp;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		E78838BD2EA185E5004C2C0E /* GraficosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GraficosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7AF5A7E2F5F4EDD007E3E6F /* GraficosAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GraficosAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -16,10 +27,22 @@
 			path = GraficosApp;
 			sourceTree = "<group>";
 		};
+		E7AF5A7F2F5F4EDD007E3E6F /* GraficosAppTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = GraficosAppTests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		E78838BA2EA185E5004C2C0E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E7AF5A7B2F5F4EDD007E3E6F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				E78838BF2EA185E5004C2C0E /* GraficosApp */,
+				E7AF5A7F2F5F4EDD007E3E6F /* GraficosAppTests */,
 				E78838BE2EA185E5004C2C0E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				E78838BD2EA185E5004C2C0E /* GraficosApp.app */,
+				E7AF5A7E2F5F4EDD007E3E6F /* GraficosAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +95,29 @@
 			productReference = E78838BD2EA185E5004C2C0E /* GraficosApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E7AF5A7D2F5F4EDD007E3E6F /* GraficosAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E7AF5A862F5F4EDD007E3E6F /* Build configuration list for PBXNativeTarget "GraficosAppTests" */;
+			buildPhases = (
+				E7AF5A7A2F5F4EDD007E3E6F /* Sources */,
+				E7AF5A7B2F5F4EDD007E3E6F /* Frameworks */,
+				E7AF5A7C2F5F4EDD007E3E6F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E7AF5A832F5F4EDD007E3E6F /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				E7AF5A7F2F5F4EDD007E3E6F /* GraficosAppTests */,
+			);
+			name = GraficosAppTests;
+			packageProductDependencies = (
+			);
+			productName = GraficosAppTests;
+			productReference = E7AF5A7E2F5F4EDD007E3E6F /* GraficosAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -82,6 +130,10 @@
 				TargetAttributes = {
 					E78838BC2EA185E5004C2C0E = {
 						CreatedOnToolsVersion = 26.0.1;
+					};
+					E7AF5A7D2F5F4EDD007E3E6F = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = E78838BC2EA185E5004C2C0E;
 					};
 				};
 			};
@@ -100,12 +152,20 @@
 			projectRoot = "";
 			targets = (
 				E78838BC2EA185E5004C2C0E /* GraficosApp */,
+				E7AF5A7D2F5F4EDD007E3E6F /* GraficosAppTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		E78838BB2EA185E5004C2C0E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E7AF5A7C2F5F4EDD007E3E6F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +182,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E7AF5A7A2F5F4EDD007E3E6F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E7AF5A832F5F4EDD007E3E6F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E78838BC2EA185E5004C2C0E /* GraficosApp */;
+			targetProxy = E7AF5A822F5F4EDD007E3E6F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E78838C62EA185E6004C2C0E /* Debug */ = {
@@ -310,6 +385,48 @@
 			};
 			name = Release;
 		};
+		E7AF5A842F5F4EDD007E3E6F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 69Q9PZ4TXJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.kesia.GraficosAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GraficosApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GraficosApp";
+			};
+			name = Debug;
+		};
+		E7AF5A852F5F4EDD007E3E6F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 69Q9PZ4TXJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = br.com.kesia.GraficosAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GraficosApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GraficosApp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -327,6 +444,15 @@
 			buildConfigurations = (
 				E78838C92EA185E6004C2C0E /* Debug */,
 				E78838CA2EA185E6004C2C0E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E7AF5A862F5F4EDD007E3E6F /* Build configuration list for PBXNativeTarget "GraficosAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7AF5A842F5F4EDD007E3E6F /* Debug */,
+				E7AF5A852F5F4EDD007E3E6F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
